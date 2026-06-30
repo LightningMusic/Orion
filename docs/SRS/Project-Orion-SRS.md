@@ -2211,3 +2211,354 @@ The Bootstrap Engine shall be considered compliant when it can:
 * Execute benchmarking.
 * Report deployment success.
 * Transition the node into production operation.
+
+# 11.8 Deployment Controller Requirements
+
+## Overview
+
+The Deployment Controller is the centralized management service responsible for coordinating, authorizing, configuring, and registering Orion deployments.
+
+The Deployment Controller shall function as the authoritative source for deployment configuration, node identity, inventory, deployment policy, and provisioning metadata.
+
+The Deployment Controller shall operate independently of deployment media and shall remain continuously available within the Orion infrastructure.
+
+---
+
+### REQ-CTRL-001
+
+The Deployment Controller shall authenticate all deployment requests.
+
+---
+
+### REQ-CTRL-002
+
+The Deployment Controller shall uniquely identify every node requesting deployment.
+
+---
+
+### REQ-CTRL-003
+
+The Deployment Controller shall assign a unique Orion Node Identifier.
+
+---
+
+### REQ-CTRL-004
+
+The Deployment Controller shall assign a unique hostname.
+
+---
+
+### REQ-CTRL-005
+
+The Deployment Controller shall prevent duplicate node identities.
+
+---
+
+### REQ-CTRL-006
+
+The Deployment Controller shall distribute deployment configuration to authorized nodes.
+
+---
+
+### REQ-CTRL-007
+
+Deployment configuration shall include, at minimum:
+
+* Hostname
+* Node Identifier
+* Cluster information
+* Network configuration
+* SSH configuration
+* Benchmark profile
+* Deployment policy
+
+---
+
+### REQ-CTRL-008
+
+The Deployment Controller shall maintain a deployment policy database.
+
+---
+
+### REQ-CTRL-009
+
+The Deployment Controller shall maintain a hardware inventory database.
+
+---
+
+### REQ-CTRL-010
+
+The Deployment Controller shall record every deployment session.
+
+---
+
+### REQ-CTRL-011
+
+The Deployment Controller shall record deployment failures.
+
+---
+
+### REQ-CTRL-012
+
+The Deployment Controller shall maintain deployment history for each node.
+
+---
+
+### REQ-CTRL-013
+
+The Deployment Controller shall receive benchmark results.
+
+---
+
+### REQ-CTRL-014
+
+The Deployment Controller shall store benchmark history.
+
+---
+
+### REQ-CTRL-015
+
+The Deployment Controller shall receive deployment reports.
+
+---
+
+### REQ-CTRL-016
+
+The Deployment Controller shall provide deployment approval decisions.
+
+Deployment approval may be:
+
+* Approved
+* Denied
+* Pending manual approval
+
+---
+
+### REQ-CTRL-017
+
+The Deployment Controller shall distribute deployment policies according to configuration.
+
+---
+
+### REQ-CTRL-018
+
+The Deployment Controller shall support future expansion without requiring modification of deployed nodes whenever practical.
+
+---
+
+### REQ-CTRL-019
+
+The Deployment Controller shall log all communications with Orion nodes.
+
+---
+
+### REQ-CTRL-020
+
+The Deployment Controller shall support secure communication channels.
+
+---
+
+### REQ-CTRL-021
+
+The Deployment Controller shall expose a documented API for Orion components.
+
+---
+
+## Acceptance Criteria
+
+The Deployment Controller shall be considered compliant when it can:
+
+* Authenticate deployment requests.
+* Assign unique node identities.
+* Assign hostnames.
+* Distribute deployment configuration.
+* Register inventory.
+* Record deployment history.
+* Receive benchmark results.
+* Log all deployment communications.
+
+# 11.9 Inventory Requirements
+
+## Overview
+
+The Inventory System maintains a complete record of every Orion-managed node throughout its operational lifecycle.
+
+Inventory information shall remain centralized within the Deployment Controller.
+
+---
+
+### REQ-INV-001
+
+The Inventory System shall create an inventory record for every successfully deployed node.
+
+---
+
+### REQ-INV-002
+
+Inventory records shall contain, at minimum:
+
+* Orion Node Identifier
+* Hostname
+* Manufacturer
+* Model
+* Serial Number
+* CPU
+* Memory
+* Storage
+* Ethernet MAC Address
+* Deployment Date
+
+---
+
+### REQ-INV-003
+
+The Inventory System shall record benchmark results.
+
+---
+
+### REQ-INV-004
+
+The Inventory System shall record deployment status.
+
+---
+
+### REQ-INV-005
+
+Deployment status shall include:
+
+* Pending
+* Provisioning
+* Bootstrapping
+* Operational
+* Failed
+* Retired
+
+---
+
+### REQ-INV-006
+
+The Inventory System shall record deployment history.
+
+---
+
+### REQ-INV-007
+
+The Inventory System shall record deployment reports.
+
+---
+
+### REQ-INV-008
+
+The Inventory System shall support future metadata expansion.
+
+---
+
+### REQ-INV-009
+
+The Inventory System shall maintain inventory consistency after software upgrades.
+
+---
+
+### REQ-INV-010
+
+The Inventory System shall permit searching by:
+
+* Hostname
+* Node Identifier
+* Manufacturer
+* Model
+* Serial Number
+
+---
+
+## Acceptance Criteria
+
+The Inventory System shall be considered compliant when it can:
+
+* Register deployed nodes.
+* Maintain deployment history.
+* Store benchmark results.
+* Store deployment reports.
+* Maintain searchable inventory records.
+
+# 11.10 Benchmark Requirements
+
+## Overview
+
+Following successful deployment, Orion shall evaluate node performance to establish a baseline for future comparison.
+
+Benchmarking shall occur automatically after successful Bootstrap.
+
+Benchmarking shall not prevent the node from entering operational service unless required by deployment policy.
+
+---
+
+### REQ-BENCH-001
+
+The Benchmark Engine shall evaluate processor performance.
+
+---
+
+### REQ-BENCH-002
+
+The Benchmark Engine shall evaluate memory performance.
+
+---
+
+### REQ-BENCH-003
+
+The Benchmark Engine shall evaluate storage performance.
+
+---
+
+### REQ-BENCH-004
+
+The Benchmark Engine shall evaluate Ethernet performance.
+
+---
+
+### REQ-BENCH-005
+
+The Benchmark Engine shall monitor system temperatures during benchmarking.
+
+---
+
+### REQ-BENCH-006
+
+The Benchmark Engine shall record benchmark duration.
+
+---
+
+### REQ-BENCH-007
+
+Benchmark results shall be submitted to the Deployment Controller.
+
+---
+
+### REQ-BENCH-008
+
+Benchmark failures shall be reported separately from deployment failures.
+
+---
+
+### REQ-BENCH-009
+
+Benchmark execution shall be configurable.
+
+---
+
+### REQ-BENCH-010
+
+Benchmark history shall remain associated with the node inventory record.
+
+---
+
+## Acceptance Criteria
+
+The Benchmark Engine shall be considered compliant when it can:
+
+* Execute configured benchmark suites.
+* Record benchmark results.
+* Submit benchmark data.
+* Associate benchmark history with deployed nodes.
+* Report benchmark failures independently of deployment status.
