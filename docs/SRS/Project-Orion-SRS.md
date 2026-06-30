@@ -6,7 +6,7 @@
 
 **Document ID:** ORION-SRS
 
-**Version:** 0.1.0
+**Version:** 0.3.0
 
 **Status:** Draft
 
@@ -444,11 +444,6 @@ Future revisions of this document will define **how Orion works**.
 
 ---
 
-**End of Session One**
-
-**Document Version:** 0.1.0
-# Session Two
-
 # System Architecture
 
 ---
@@ -790,29 +785,271 @@ The build system shall not require manual modification of deployment files.
 
 ---
 
-# Session Two Completion
+# 10. Core Components
 
-Session Two establishes the architecture of Project Orion.
+## 10.1 Overview
 
-The following major architectural components are now defined:
+Project Orion is composed of independent software subsystems.
 
-* Repository
-* Deployment USB
-* Technician Console
-* Device Retirement Workflow
-* Orion Node Provisioning Workflow
-* Deployment Controller
-* Configuration System
-* Logging System
-* Inventory System
-* Benchmark System
-* Networking Architecture
-* Build System
+Each subsystem is responsible for a single area of functionality and communicates with other subsystems through well-defined interfaces.
 
-Subsequent sections of the SRS shall reference this architecture when defining detailed functional requirements.
+Subsystems shall remain as independent as practical to simplify maintenance, testing, and future expansion.
 
 ---
 
-**End of Session Two**
+## 10.2 Technician Console
 
-**Document Version:** 0.2.0
+The Technician Console is the primary user interface of Project Orion.
+
+Responsibilities include:
+
+* Present deployment workflows
+* Display hardware inspection results
+* Request operator confirmation
+* Display deployment progress
+* Display deployment reports
+* Display warnings and errors
+* Launch deployment workflows
+
+The Technician Console shall be the only application directly operated by the technician.
+
+---
+
+## 10.3 Inspection Engine
+
+The Inspection Engine is responsible for collecting hardware information without modifying the target system.
+
+Responsibilities include:
+
+* CPU identification
+* Memory detection
+* Storage detection
+* SMART health evaluation
+* Battery information
+* Network adapter detection
+* Firmware capability detection
+* Virtualization support detection
+
+Inspection operations shall never modify user data.
+
+---
+
+## 10.4 Recovery Engine
+
+The Recovery Engine provides optional recovery of user data prior to storage sanitization.
+
+Responsibilities include:
+
+* File discovery
+* User file selection
+* File copying
+* Recovery verification
+* Recovery reporting
+
+Recovery is optional.
+
+No destructive operations shall occur while Recovery is active.
+
+---
+
+## 10.5 Preparation Engine
+
+The Preparation Engine is responsible for preparing storage devices for reuse.
+
+Responsibilities include:
+
+* Target disk verification
+* Secure sanitization
+* Verification of sanitization
+* Storage reporting
+
+Preparation requires explicit operator approval before execution.
+
+---
+
+## 10.6 Provisioning Engine
+
+The Provisioning Engine installs Proxmox VE and prepares the operating system for production use.
+
+Responsibilities include:
+
+* Storage partitioning
+* Proxmox installation
+* Initial configuration
+* Package installation
+* Update installation
+
+Provisioning shall execute without additional technician interaction once authorized.
+
+---
+
+## 10.7 Bootstrap Engine
+
+The Bootstrap Engine executes after the first successful operating system boot.
+
+Responsibilities include:
+
+* Operating system configuration
+* Power configuration
+* Lid behavior configuration
+* Supported battery configuration
+* SSH configuration
+* Deployment Controller registration
+* Cluster enrollment
+
+Bootstrap concludes when the node is ready for production.
+
+---
+
+## 10.8 Deployment Controller
+
+The Deployment Controller coordinates cluster enrollment.
+
+Responsibilities include:
+
+* Authenticate nodes
+* Assign hostnames
+* Assign node identifiers
+* Distribute configuration
+* Register inventory
+* Record deployment history
+* Apply deployment policy
+
+The Deployment Controller is the authoritative source for deployment identity.
+
+---
+
+## 10.9 Inventory Engine
+
+The Inventory Engine records hardware and deployment metadata.
+
+Responsibilities include:
+
+* Hardware inventory
+* Deployment history
+* Benchmark storage
+* Status reporting
+* Asset tracking
+
+Inventory information shall remain associated with each deployed node throughout its lifecycle.
+
+---
+
+## 10.10 Benchmark Engine
+
+The Benchmark Engine evaluates newly deployed hardware.
+
+Responsibilities include:
+
+* CPU benchmarking
+* Memory benchmarking
+* Storage benchmarking
+* Network benchmarking
+* Thermal monitoring
+
+Benchmark results shall be submitted to the Deployment Controller.
+
+---
+
+## 10.11 Configuration Engine
+
+The Configuration Engine loads, validates, and distributes Orion configuration.
+
+Responsibilities include:
+
+* Load configuration files
+* Validate schema
+* Provide configuration to subsystems
+* Detect invalid configuration
+* Maintain version compatibility
+
+Configuration shall be external to application source code.
+
+---
+
+## 10.12 Logging Engine
+
+The Logging Engine provides centralized event recording.
+
+Responsibilities include:
+
+* Event logging
+* Error logging
+* Warning logging
+* Deployment history
+* Diagnostic information
+
+All Orion subsystems shall utilize the Logging Engine.
+
+---
+
+## 10.13 Networking Engine
+
+The Networking Engine manages communication with external systems.
+
+Responsibilities include:
+
+* Ethernet detection
+* Network validation
+* Deployment Controller communication
+* Cluster communication
+* Connectivity verification
+
+Provisioning shall not proceed unless networking requirements have been satisfied.
+
+---
+
+## 10.14 Build System
+
+The Build System produces Orion release artifacts.
+
+Responsibilities include:
+
+* Validate project structure
+* Execute automated tests
+* Package deployment media
+* Produce release archives
+* Generate deployment USB contents
+
+Development shall occur within the repository.
+
+Deployment media shall always be generated by the Build System.
+
+---
+
+## 10.15 Component Relationships
+
+The overall software architecture follows the sequence below.
+
+```text
+Technician Console
+        │
+        ▼
+Deployment Workflow
+        │
+        ▼
+Inspection Engine
+        │
+        ▼
+Recovery Engine (optional)
+        │
+        ▼
+Preparation Engine
+        │
+        ▼
+Provisioning Engine
+        │
+        ▼
+Bootstrap Engine
+        │
+        ▼
+Deployment Controller
+        │
+        ▼
+Inventory + Benchmark
+```
+
+Each subsystem shall expose clearly defined interfaces and shall avoid unnecessary coupling to other subsystems.
+
+Future Orion releases may introduce additional components without modifying existing subsystem responsibilities.
+
