@@ -1757,3 +1757,457 @@ The Preparation Engine shall be considered compliant when it can:
 * Produce a sanitization report.
 * Log all destructive operations.
 * Prevent provisioning until preparation has successfully completed.
+
+# 11.6 Provisioning Engine Requirements
+
+## Overview
+
+The Provisioning Engine is responsible for installing and configuring Proxmox Virtual Environment (VE) on hardware that has successfully completed the Preparation workflow.
+
+Provisioning is intended to operate with minimal technician interaction after deployment has been explicitly authorized.
+
+The Provisioning Engine shall produce a standardized installation suitable for automated bootstrap and cluster enrollment.
+
+---
+
+### REQ-PROV-001
+
+The Provisioning Engine shall not begin unless the Preparation Engine has completed successfully.
+
+---
+
+### REQ-PROV-002
+
+The Provisioning Engine shall verify that the target storage device is eligible for installation.
+
+---
+
+### REQ-PROV-003
+
+The Provisioning Engine shall verify that sufficient storage capacity exists for the configured installation profile.
+
+---
+
+### REQ-PROV-004
+
+The Provisioning Engine shall partition the target storage device according to the selected deployment profile.
+
+---
+
+### REQ-PROV-005
+
+The Provisioning Engine shall install the configured version of Proxmox VE.
+
+---
+
+### REQ-PROV-006
+
+The Provisioning Engine shall verify successful completion of the installation process.
+
+---
+
+### REQ-PROV-007
+
+The Provisioning Engine shall install all required Orion bootstrap components.
+
+---
+
+### REQ-PROV-008
+
+The Provisioning Engine shall install all software dependencies required by Orion.
+
+---
+
+### REQ-PROV-009
+
+The Provisioning Engine shall configure the installed operating system to automatically execute the Bootstrap Engine during the first boot.
+
+---
+
+### REQ-PROV-010
+
+The Provisioning Engine shall preserve deployment logs throughout the installation process.
+
+---
+
+### REQ-PROV-011
+
+The Provisioning Engine shall generate an installation summary upon completion.
+
+---
+
+### REQ-PROV-012
+
+If installation fails, Orion shall preserve diagnostic information for troubleshooting.
+
+---
+
+### REQ-PROV-013
+
+The Provisioning Engine shall reboot the system automatically after successful installation.
+
+---
+
+### REQ-PROV-014
+
+The technician shall not be required to manually configure Proxmox after installation.
+
+---
+
+### REQ-PROV-015
+
+The Provisioning Engine shall support deployment profiles that define installation behavior.
+
+Deployment profiles may specify:
+
+* Storage layout
+* Partition scheme
+* Filesystem
+* Package selection
+* Bootstrap configuration
+
+---
+
+### REQ-PROV-016
+
+The Provisioning Engine shall support unattended installation.
+
+---
+
+### REQ-PROV-017
+
+The Provisioning Engine shall validate deployment media integrity before beginning installation.
+
+---
+
+### REQ-PROV-018
+
+The Provisioning Engine shall log all installation activities.
+
+---
+
+### REQ-PROV-019
+
+The Provisioning Engine shall verify successful reboot into the installed operating system.
+
+---
+
+### REQ-PROV-020
+
+Upon first successful boot, control shall automatically transfer to the Bootstrap Engine.
+
+---
+
+## Acceptance Criteria
+
+The Provisioning Engine shall be considered compliant when it can:
+
+* Install Proxmox VE without manual intervention.
+* Produce a bootable system.
+* Install Orion bootstrap components.
+* Preserve installation logs.
+* Automatically transition to the Bootstrap Engine following the first successful boot.
+
+# 11.6 Provisioning Engine Requirements
+
+## Overview
+
+The Provisioning Engine is responsible for transforming prepared hardware into a fully configured Proxmox Virtual Environment (VE) node.
+
+Provisioning begins only after the Preparation Engine has successfully completed and the technician has explicitly approved deployment.
+
+Once provisioning begins, Orion shall automate as much of the deployment process as safely possible.
+
+---
+
+### REQ-PROV-001
+
+The Provisioning Engine shall not begin until the Preparation Engine has completed successfully.
+
+---
+
+### REQ-PROV-002
+
+The Provisioning Engine shall verify Ethernet connectivity before beginning deployment.
+
+---
+
+### REQ-PROV-003
+
+If Ethernet connectivity is unavailable, provisioning shall pause until connectivity has been established.
+
+---
+
+### REQ-PROV-004
+
+The Provisioning Engine shall verify communication with the Deployment Controller before operating system installation begins.
+
+---
+
+### REQ-PROV-005
+
+The Provisioning Engine shall verify that the target system satisfies minimum deployment requirements.
+
+These requirements shall include, at minimum:
+
+* Supported CPU architecture
+* Sufficient system memory
+* Supported storage device
+* Functional Ethernet interface
+* Hardware virtualization support
+
+---
+
+### REQ-PROV-006
+
+If minimum deployment requirements are not satisfied, provisioning shall terminate and generate a deployment report.
+
+---
+
+### REQ-PROV-007
+
+The Provisioning Engine shall partition the deployment storage device according to Orion configuration.
+
+---
+
+### REQ-PROV-008
+
+The Provisioning Engine shall install Proxmox Virtual Environment.
+
+---
+
+### REQ-PROV-009
+
+The Provisioning Engine shall install all required Orion software components.
+
+---
+
+### REQ-PROV-010
+
+The Provisioning Engine shall install required operating system packages defined by deployment configuration.
+
+---
+
+### REQ-PROV-011
+
+The Provisioning Engine shall apply deployment configuration automatically.
+
+---
+
+### REQ-PROV-012
+
+The Provisioning Engine shall configure networking according to deployment policy.
+
+---
+
+### REQ-PROV-013
+
+The Provisioning Engine shall install required SSH configuration.
+
+---
+
+### REQ-PROV-014
+
+The Provisioning Engine shall prepare the system for Bootstrap execution.
+
+---
+
+### REQ-PROV-015
+
+The Provisioning Engine shall configure automatic execution of the Bootstrap Engine following the first successful boot.
+
+---
+
+### REQ-PROV-016
+
+The Provisioning Engine shall reboot the system upon successful completion of operating system installation.
+
+---
+
+### REQ-PROV-017
+
+The Provisioning Engine shall display deployment progress throughout provisioning.
+
+---
+
+### REQ-PROV-018
+
+The Provisioning Engine shall log every provisioning operation.
+
+---
+
+### REQ-PROV-019
+
+The Provisioning Engine shall generate a provisioning report.
+
+---
+
+### REQ-PROV-020
+
+If provisioning fails, Orion shall preserve diagnostic information for troubleshooting.
+
+---
+
+### REQ-PROV-021
+
+Provisioning shall not require additional technician interaction after deployment has been authorized unless an unrecoverable error occurs.
+
+---
+
+## Acceptance Criteria
+
+The Provisioning Engine shall be considered compliant when it can:
+
+* Validate deployment prerequisites.
+* Install Proxmox VE.
+* Apply deployment configuration.
+* Configure networking.
+* Prepare Bootstrap execution.
+* Reboot into the deployed operating system.
+* Produce a provisioning report.
+* Preserve deployment logs.
+
+# 11.7 Bootstrap Engine Requirements
+
+## Overview
+
+The Bootstrap Engine executes automatically after the first successful boot of the newly provisioned Proxmox system.
+
+Bootstrap is responsible for converting a freshly installed operating system into a production-ready Orion node.
+
+Bootstrap shall execute without technician intervention whenever possible.
+
+---
+
+### REQ-BOOT-001
+
+The Bootstrap Engine shall execute automatically after the first successful system boot.
+
+---
+
+### REQ-BOOT-002
+
+The Bootstrap Engine shall verify communication with the Deployment Controller.
+
+---
+
+### REQ-BOOT-003
+
+The Bootstrap Engine shall authenticate the node with the Deployment Controller.
+
+---
+
+### REQ-BOOT-004
+
+The Bootstrap Engine shall retrieve deployment configuration assigned to the node.
+
+---
+
+### REQ-BOOT-005
+
+The Bootstrap Engine shall configure the system hostname assigned by the Deployment Controller.
+
+---
+
+### REQ-BOOT-006
+
+The Bootstrap Engine shall install authorized SSH keys supplied by the Deployment Controller.
+
+---
+
+### REQ-BOOT-007
+
+The Bootstrap Engine shall configure operating system power management according to Orion deployment policy.
+
+---
+
+### REQ-BOOT-008
+
+The Bootstrap Engine shall configure laptop lid behavior to prevent unintended suspend during server operation.
+
+---
+
+### REQ-BOOT-009
+
+The Bootstrap Engine shall attempt to configure supported firmware battery charging thresholds according to deployment policy.
+
+---
+
+### REQ-BOOT-010
+
+If battery threshold configuration is unsupported, Orion shall log the limitation and continue deployment.
+
+---
+
+### REQ-BOOT-011
+
+The Bootstrap Engine shall configure supported firmware power recovery behavior where supported.
+
+---
+
+### REQ-BOOT-012
+
+The Bootstrap Engine shall automatically enroll the node into the designated Proxmox cluster.
+
+---
+
+### REQ-BOOT-013
+
+The Bootstrap Engine shall verify successful cluster enrollment.
+
+---
+
+### REQ-BOOT-014
+
+The Bootstrap Engine shall register the node with the Orion Inventory System.
+
+---
+
+### REQ-BOOT-015
+
+The Bootstrap Engine shall initiate hardware benchmarking after successful cluster enrollment.
+
+---
+
+### REQ-BOOT-016
+
+The Bootstrap Engine shall report deployment completion to the Deployment Controller.
+
+---
+
+### REQ-BOOT-017
+
+The Bootstrap Engine shall remove temporary installation artifacts after successful deployment.
+
+---
+
+### REQ-BOOT-018
+
+The Bootstrap Engine shall generate a bootstrap completion report.
+
+---
+
+### REQ-BOOT-019
+
+Bootstrap shall be considered complete only after all required deployment stages have successfully completed.
+
+---
+
+### REQ-BOOT-020
+
+Upon successful completion, the node shall transition into normal operational status.
+
+---
+
+## Acceptance Criteria
+
+The Bootstrap Engine shall be considered compliant when it can:
+
+* Retrieve deployment configuration.
+* Configure the operating system.
+* Configure supported hardware settings.
+* Join the Proxmox cluster.
+* Register inventory.
+* Execute benchmarking.
+* Report deployment success.
+* Transition the node into production operation.
