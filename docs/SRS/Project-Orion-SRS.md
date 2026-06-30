@@ -1546,3 +1546,214 @@ The Recovery Engine shall be considered compliant when it can:
 * Produce a recovery summary.
 * Prevent storage sanitization until recovery has completed or been intentionally skipped.
 * Complete recovery without modifying source storage.
+
+# 11.5 Preparation Engine Requirements
+
+## Overview
+
+The Preparation Engine is responsible for preparing storage devices for reuse through secure storage sanitization.
+
+Preparation is the first destructive stage of the Orion deployment process.
+
+No storage modifications shall occur until all required operator confirmations have been completed.
+
+The Preparation Engine shall prioritize operator awareness, target verification, and safety over execution speed.
+
+---
+
+### REQ-PREP-001
+
+The Preparation Engine shall not begin until the Recovery Engine has successfully completed or has been intentionally skipped by the technician.
+
+---
+
+### REQ-PREP-002
+
+The Preparation Engine shall display a summary of the deployment session before any destructive operation begins.
+
+The summary shall include, at minimum:
+
+* System manufacturer
+* System model
+* System serial number
+* Target storage device(s)
+* Storage capacity
+* Recovery status
+* Deployment workflow
+
+---
+
+### REQ-PREP-003
+
+The Preparation Engine shall clearly indicate that all subsequent storage operations are irreversible.
+
+---
+
+### REQ-PREP-004
+
+The technician shall explicitly approve storage sanitization before execution.
+
+---
+
+### REQ-PREP-005
+
+The technician shall confirm the selected target storage device.
+
+---
+
+### REQ-PREP-006
+
+The technician shall acknowledge that all selected storage devices will be permanently erased.
+
+---
+
+### REQ-PREP-007
+
+The Preparation Engine shall require multiple independent confirmation prompts before beginning storage sanitization.
+
+The exact number and presentation of confirmations shall be configurable.
+
+The default configuration for Version 1.0 shall require no fewer than three confirmations.
+
+---
+
+### REQ-PREP-008
+
+The Preparation Engine shall verify that the selected storage device has not changed since inspection.
+
+---
+
+### REQ-PREP-009
+
+If storage configuration changes after inspection, the deployment shall pause and require a new inspection.
+
+---
+
+### REQ-PREP-010
+
+The Preparation Engine shall verify storage device identity using all available identifiers including:
+
+* Device path
+* Capacity
+* Manufacturer
+* Model
+* Serial number
+
+---
+
+### REQ-PREP-011
+
+If storage identity cannot be verified, sanitization shall not begin.
+
+---
+
+### REQ-PREP-012
+
+The Preparation Engine shall prevent accidental selection of Orion deployment media.
+
+The deployment USB shall never be eligible for sanitization.
+
+---
+
+### REQ-PREP-013
+
+The Preparation Engine shall sanitize every selected deployment storage device.
+
+---
+
+### REQ-PREP-014
+
+The sanitization method shall be configurable.
+
+Supported methods may include:
+
+* Quick erase
+* Full overwrite
+* ATA Secure Erase (when supported)
+* NVMe Secure Erase (when supported)
+
+---
+
+### REQ-PREP-015
+
+The Preparation Engine shall report sanitization progress.
+
+---
+
+### REQ-PREP-016
+
+The Preparation Engine shall report estimated completion time whenever practical.
+
+---
+
+### REQ-PREP-017
+
+Upon completion, Orion shall verify that sanitization completed successfully.
+
+---
+
+### REQ-PREP-018
+
+If sanitization verification fails, deployment shall terminate and report the failure.
+
+---
+
+### REQ-PREP-019
+
+The Preparation Engine shall generate a sanitization report.
+
+The report shall include:
+
+* Storage devices sanitized
+* Sanitization method
+* Start time
+* End time
+* Verification status
+* Operator identity (if configured)
+
+---
+
+### REQ-PREP-020
+
+The Preparation Engine shall log every sanitization operation.
+
+---
+
+### REQ-PREP-021
+
+The Preparation Engine shall log every operator confirmation.
+
+---
+
+### REQ-PREP-022
+
+The Preparation Engine shall immediately halt if unrecoverable storage errors are encountered.
+
+---
+
+### REQ-PREP-023
+
+Following successful sanitization, Orion shall mark the system as eligible for provisioning.
+
+---
+
+### REQ-PREP-024
+
+Preparation shall not automatically begin provisioning.
+
+The technician shall explicitly authorize the transition to the Provisioning Engine.
+
+---
+
+## Acceptance Criteria
+
+The Preparation Engine shall be considered compliant when it can:
+
+* Verify the selected storage device.
+* Require the configured confirmation sequence.
+* Prevent sanitization of deployment media.
+* Perform the selected sanitization method.
+* Verify sanitization completion.
+* Produce a sanitization report.
+* Log all destructive operations.
+* Prevent provisioning until preparation has successfully completed.
