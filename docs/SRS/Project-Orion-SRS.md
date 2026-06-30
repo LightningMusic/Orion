@@ -3031,3 +3031,203 @@ The Security subsystem shall be considered compliant when it can:
 * Reject unauthorized deployments.
 * Log all security events.
 * Remove temporary deployment secrets.
+
+# 12. Non-Functional Requirements
+
+## 12.1 Overview
+
+Non-functional requirements define the quality attributes expected of Project Orion.
+
+Unlike functional requirements, these requirements describe *how well* Orion performs rather than *what* Orion does.
+
+---
+
+## 12.2 Performance
+
+### NFR-PERF-001
+
+The Technician Console should launch within 10 seconds after the deployment environment has finished booting.
+
+---
+
+### NFR-PERF-002
+
+Hardware inspection should complete within two minutes on supported hardware under normal operating conditions.
+
+---
+
+### NFR-PERF-003
+
+Deployment progress shall remain responsive throughout long-running operations.
+
+---
+
+### NFR-PERF-004
+
+Subsystems shall avoid unnecessary repeated hardware scans.
+
+---
+
+## 12.3 Reliability
+
+### NFR-REL-001
+
+Unexpected subsystem failures shall not corrupt deployment logs.
+
+---
+
+### NFR-REL-002
+
+Recoverable failures shall generate informative diagnostic information.
+
+---
+
+### NFR-REL-003
+
+Unexpected shutdowns shall not leave deployment state in an undefined condition.
+
+---
+
+### NFR-REL-004
+
+Deployment reports shall clearly identify the last successfully completed stage.
+
+---
+
+## 12.4 Maintainability
+
+### NFR-MAIN-001
+
+Project Orion shall utilize a modular software architecture.
+
+---
+
+### NFR-MAIN-002
+
+Subsystems shall expose documented interfaces.
+
+---
+
+### NFR-MAIN-003
+
+Configuration shall remain external to application logic.
+
+---
+
+### NFR-MAIN-004
+
+All production code shall be traceable to documented functional requirements.
+
+---
+
+### NFR-MAIN-005
+
+All significant architectural decisions shall be documented using Architecture Decision Records (ADRs).
+
+---
+
+## 12.5 Portability
+
+### NFR-PORT-001
+
+Project Orion shall support deployment on x86-64 systems.
+
+---
+
+### NFR-PORT-002
+
+Hardware-specific functionality shall degrade gracefully when unsupported.
+
+---
+
+### NFR-PORT-003
+
+Unsupported firmware capabilities shall not cause deployment failure unless required for safe operation.
+
+---
+
+## 12.6 Usability
+
+### NFR-USE-001
+
+Operator prompts shall clearly distinguish informational messages, warnings, and destructive operations.
+
+---
+
+### NFR-USE-002
+
+Progress indicators shall be displayed during all operations expected to exceed five seconds.
+
+---
+
+### NFR-USE-003
+
+Irreversible actions shall require explicit operator confirmation.
+
+---
+
+## Acceptance Criteria
+
+Project Orion shall satisfy these quality requirements throughout development and production deployment.
+
+# 13. Verification and Acceptance
+
+## 13.1 Verification Strategy
+
+Every functional requirement defined within this Software Requirements Specification shall be verified prior to release.
+
+Verification methods may include:
+
+* Automated unit testing
+* Integration testing
+* Hardware validation
+* Manual verification
+* Deployment simulation
+
+Each requirement shall be traceable to one or more verification activities.
+
+---
+
+## 13.2 Requirement Traceability
+
+Every requirement identifier (`REQ-*` and `NFR-*`) shall be traceable to:
+
+* Source code implementation
+* Test cases
+* Release notes
+* Deployment documentation
+
+This traceability shall be maintained throughout the project's lifecycle.
+
+---
+
+## 13.3 Acceptance Testing
+
+A release of Project Orion shall not be considered production-ready until:
+
+* All mandatory functional requirements have been implemented.
+* All acceptance criteria have been satisfied.
+* No Critical severity defects remain open.
+* All deployment workflows have completed successfully on representative hardware.
+
+---
+
+## 13.4 Definition of Done
+
+A feature is considered complete when all of the following conditions have been met:
+
+* The corresponding requirement exists within the SRS.
+* Source code has been implemented.
+* Automated tests have been written where practical.
+* Documentation has been updated.
+* Code review has been completed.
+* All tests pass successfully.
+* The feature has been integrated into the main branch.
+
+---
+
+## 13.5 Future Revisions
+
+This SRS is a living engineering document.
+
+Future revisions shall expand existing requirements, introduce new capabilities, and revise architectural decisions while preserving version history through the project's revision log and Git repository.
