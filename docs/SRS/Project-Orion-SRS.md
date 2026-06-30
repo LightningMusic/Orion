@@ -1349,3 +1349,200 @@ Inspection results shall be made available to other Orion subsystems through doc
 ### REQ-INS-028
 
 Inspection results shall be retained for the duration of the deployment session.
+
+# 11.4 Recovery Engine Requirements
+
+## Overview
+
+The Recovery Engine provides an optional mechanism for recovering user-selected data from the target storage device prior to any destructive operations.
+
+Recovery shall always occur before storage sanitization.
+
+Recovery operations shall be read-only.
+
+The Recovery Engine shall never modify the source storage device.
+
+Recovery may be skipped only through explicit technician action.
+
+---
+
+### REQ-REC-001
+
+The Recovery Engine shall not begin unless the Inspection Engine has completed successfully.
+
+---
+
+### REQ-REC-002
+
+The Recovery Engine shall identify all readable storage volumes on the target system.
+
+---
+
+### REQ-REC-003
+
+The Recovery Engine shall enumerate accessible file systems on each detected storage volume.
+
+---
+
+### REQ-REC-004
+
+The Recovery Engine shall present discovered storage volumes to the technician.
+
+---
+
+### REQ-REC-005
+
+The Recovery Engine shall allow the technician to browse the contents of detected storage volumes.
+
+---
+
+### REQ-REC-006
+
+The Recovery Engine shall allow the technician to select individual files or directories for recovery.
+
+---
+
+### REQ-REC-007
+
+The Recovery Engine shall support recovery to an external storage device designated by the technician.
+
+---
+
+### REQ-REC-008
+
+The Recovery Engine shall verify sufficient free space exists on the destination storage before beginning recovery.
+
+---
+
+### REQ-REC-009
+
+The Recovery Engine shall preserve original directory structures during recovery unless otherwise specified.
+
+---
+
+### REQ-REC-010
+
+The Recovery Engine shall preserve file timestamps whenever practical.
+
+---
+
+### REQ-REC-011
+
+The Recovery Engine shall display recovery progress throughout the operation.
+
+---
+
+### REQ-REC-012
+
+The Recovery Engine shall verify each copied file after transfer.
+
+---
+
+### REQ-REC-013
+
+The Recovery Engine shall report any files that could not be copied.
+
+---
+
+### REQ-REC-014
+
+The Recovery Engine shall generate a recovery summary upon completion.
+
+The summary shall include, at minimum:
+
+* Files recovered
+* Directories recovered
+* Total bytes copied
+* Files skipped
+* Files that failed verification
+* Recovery duration
+
+---
+
+### REQ-REC-015
+
+The Recovery Engine shall clearly indicate when no recovery has been performed.
+
+---
+
+### REQ-REC-016
+
+The Recovery Engine shall require explicit technician acknowledgement before recovery is skipped.
+
+---
+
+### REQ-REC-017
+
+The Recovery Engine shall prevent the Preparation Engine from executing until one of the following conditions has been satisfied:
+
+* Recovery completed successfully.
+* Recovery intentionally skipped.
+* Recovery aborted by technician.
+
+---
+
+### REQ-REC-018
+
+Recovery operations shall not alter source files.
+
+---
+
+### REQ-REC-019
+
+Recovery operations shall not delete source files.
+
+---
+
+### REQ-REC-020
+
+Recovery operations shall not modify source file metadata.
+
+---
+
+### REQ-REC-021
+
+The Recovery Engine shall log every recovery operation.
+
+---
+
+### REQ-REC-022
+
+The Recovery Engine shall log all recovery failures.
+
+---
+
+### REQ-REC-023
+
+If unreadable sectors are encountered, the Recovery Engine shall continue recovering remaining accessible data whenever practical.
+
+---
+
+### REQ-REC-024
+
+The Recovery Engine shall report storage read errors separately from copy verification failures.
+
+---
+
+### REQ-REC-025
+
+Recovery shall terminate immediately if the destination storage device becomes unavailable.
+
+---
+
+### REQ-REC-026
+
+The technician shall be informed of any incomplete recovery before destructive operations may begin.
+
+---
+
+## Acceptance Criteria
+
+The Recovery Engine shall be considered compliant when it can:
+
+* Discover supported storage devices.
+* Browse readable file systems.
+* Recover technician-selected files.
+* Verify copied files.
+* Produce a recovery summary.
+* Prevent storage sanitization until recovery has completed or been intentionally skipped.
+* Complete recovery without modifying source storage.
