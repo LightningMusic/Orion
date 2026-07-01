@@ -3231,3 +3231,272 @@ A feature is considered complete when all of the following conditions have been 
 This SRS is a living engineering document.
 
 Future revisions shall expand existing requirements, introduce new capabilities, and revise architectural decisions while preserving version history through the project's revision log and Git repository.
+
+# 14. Appendices
+
+---
+
+# Appendix A – Repository Structure
+
+The canonical Project Orion repository structure is shown below.
+
+```text
+Project-Orion/
+│
+├── docs/
+│   ├── SRS/
+│   ├── ADR/
+│   ├── architecture/
+│   ├── api/
+│   ├── diagrams/
+│   └── meeting-notes/
+│
+├── src/
+│   ├── technician_console/
+│   ├── inspection/
+│   ├── recovery/
+│   ├── preparation/
+│   ├── provisioning/
+│   ├── bootstrap/
+│   ├── deployment_controller/
+│   ├── inventory/
+│   ├── benchmark/
+│   ├── networking/
+│   ├── hardware/
+│   ├── bios/
+│   ├── logging/
+│   ├── config/
+│   ├── common/
+│   └── cli/
+│
+├── configs/
+├── scripts/
+├── tests/
+├── assets/
+├── build/
+├── releases/
+├── usb/
+├── tools/
+└── .github/
+```
+
+---
+
+# Appendix B – Deployment Workflow
+
+Project Orion Version 1.0 supports two deployment workflows.
+
+## Workflow A — Device Retirement
+
+```
+Boot Orion
+        │
+        ▼
+Inspection
+        │
+        ▼
+Recovery (Optional)
+        │
+        ▼
+Review
+        │
+        ▼
+Operator Approval
+        │
+        ▼
+Storage Sanitization
+        │
+        ▼
+Verification
+        │
+        ▼
+Retirement Complete
+```
+
+---
+
+## Workflow B — Orion Node Provisioning
+
+```
+Boot Orion
+        │
+        ▼
+Inspection
+        │
+        ▼
+Hardware Validation
+        │
+        ▼
+Network Validation
+        │
+        ▼
+Operator Approval
+        │
+        ▼
+Proxmox Installation
+        │
+        ▼
+First Reboot
+        │
+        ▼
+Bootstrap
+        │
+        ▼
+Deployment Controller
+        │
+        ▼
+Cluster Enrollment
+        │
+        ▼
+Benchmark
+        │
+        ▼
+Inventory Registration
+        │
+        ▼
+Deployment Complete
+```
+
+---
+
+# Appendix C – Deployment Environment
+
+Project Orion operates within three execution environments.
+
+## Deployment Environment
+
+Executed directly from Orion deployment media.
+
+Responsibilities include:
+
+* Inspection
+* Recovery
+* Preparation
+* Provisioning
+
+---
+
+## Bootstrap Environment
+
+Executed during the first boot of the newly installed operating system.
+
+Responsibilities include:
+
+* Operating system configuration
+* Hardware configuration
+* Cluster enrollment
+* Benchmark execution
+* Inventory registration
+
+---
+
+## Operational Environment
+
+The long-term production state of every Orion node.
+
+Responsibilities include:
+
+* Hosting workloads
+* Reporting inventory
+* Receiving management updates
+* Supporting future Orion capabilities
+
+---
+
+# Appendix D – Configuration Files
+
+Version 1.0 expects configuration to remain external to application code.
+
+Typical configuration files include:
+
+```
+deployment.yaml
+network.yaml
+cluster.yaml
+logging.yaml
+benchmark.yaml
+controller.yaml
+```
+
+Future releases may introduce additional configuration files without requiring architectural redesign.
+
+---
+
+# Appendix E – Deployment Reports
+
+Every deployment shall generate a deployment report.
+
+Typical report contents include:
+
+* Deployment identifier
+* Deployment date
+* Orion version
+* Technician identifier (optional)
+* Hardware summary
+* Recovery summary
+* Sanitization summary
+* Installation summary
+* Bootstrap summary
+* Benchmark summary
+* Deployment result
+
+Reports are intended to support auditing and troubleshooting.
+
+---
+
+# Appendix F – Logging
+
+Every deployment session generates structured logs.
+
+Typical log information includes:
+
+* Timestamp
+* Severity
+* Subsystem
+* Event Identifier
+* Event Description
+* Result
+* Diagnostic Information
+
+Log formats may evolve while preserving backwards compatibility where practical.
+
+---
+
+# Appendix G – Requirement Identifier Reference
+
+Project Orion utilizes standardized requirement identifiers.
+
+| Prefix    | Description                 |
+| --------- | --------------------------- |
+| REQ-TC    | Technician Console          |
+| REQ-INS   | Inspection Engine           |
+| REQ-REC   | Recovery Engine             |
+| REQ-PREP  | Preparation Engine          |
+| REQ-PROV  | Provisioning Engine         |
+| REQ-BOOT  | Bootstrap Engine            |
+| REQ-CTRL  | Deployment Controller       |
+| REQ-INV   | Inventory System            |
+| REQ-BENCH | Benchmark Engine            |
+| REQ-NET   | Networking                  |
+| REQ-CONF  | Configuration               |
+| REQ-LOG   | Logging                     |
+| REQ-SEC   | Security                    |
+| NFR       | Non-Functional Requirements |
+
+---
+
+# Appendix H – Development Standards
+
+Development of Project Orion shall follow these principles.
+
+* Documentation before implementation.
+* Every feature traces to an SRS requirement.
+* Every requirement is independently testable.
+* Every significant architectural decision is documented through an Architecture Decision Record (ADR).
+* All production code shall undergo code review prior to integration.
+* The `main` branch shall remain deployable at all times.
+* Version history shall be maintained through Git commits and Git tags.
+
+---
+
+# End of Document
